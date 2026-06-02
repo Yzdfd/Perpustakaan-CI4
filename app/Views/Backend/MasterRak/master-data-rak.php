@@ -4,7 +4,8 @@
             <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
             <li class="active">Master Data Rak</li>
         </ol>
-    </div><!--/.row-->
+    </div>
+    <!--/.row-->
 
     <div class="row">
         <div class="col-lg-12">
@@ -16,9 +17,9 @@
                         </a>
                     </h3>
                     <hr />
-                    <table data-toggle="table" data-show-refresh="true" data-show-toggle="true" 
-                    data-show-columns="true" data-search="true" data-select-item-name="toolbar1" 
-                    data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                    <table data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true"
+                        data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name"
+                        data-sort-order="desc">
                         <thead>
                             <tr>
                                 <th data-sortable="true">#</th>
@@ -57,18 +58,18 @@
 <script type="text/javascript">
 function doDelete(idDelete) {
     swal({
-        title: "Hapus Data Rak?",
-        text: "Data ini akan terhapus secara permanen!!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: false,
-    })
-    .then(ok => {
-        if (ok) {
-            window.location.href = '<?= base_url() ?>/admin/hapus-data-rak/' + idDelete;
-        } else {
-            $(this).removeAttr('disabled')
-        }
-    })
+            title: "Hapus Data Rak?",
+            text: "Data ini akan terhapus secara permanen!!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        })
+        .then(ok => {
+            if (ok) {
+                window.location.href = '<?= base_url() ?>/admin/hapus-data-rak/' + idDelete;
+            } else {
+                $(this).removeAttr('disabled')
+            }
+        })
 }
 </script>

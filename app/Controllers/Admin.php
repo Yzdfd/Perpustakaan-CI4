@@ -1,6 +1,5 @@
 <?php
 namespace App\Controllers;
-
 use App\Models\M_admin;
 
 class Admin extends BaseController
@@ -148,4 +147,90 @@ class Admin extends BaseController
         session()->setFlashdata('success', 'Data Admin Berhasil Dihapus!');
         echo '<script>document.location = "' . base_url('admin/master-data-admin') . '";</script>';
     }
+
+    public function profile()
+    {
+        if (
+            session()->get('ses_id') == "" ||
+            session()->get('ses_user') == "" ||
+            session()->get('ses_level') == ""
+        ) {
+            session()->setFlashdata('error', 'Silakan login terlebih dahulu!');
+            ?>
+<script>
+document.location = "<?= base_url('admin/login-admin'); ?>";
+</script>
+<?php
+            return;
+        }
+
+        $modelAdmin = new M_Admin();
+
+        $id = session()->get('ses_id');
+
+        $data['admin'] = $modelAdmin
+            ->getDataAdmin(['id_admin' => $id])
+            ->getRowArray();
+
+        return view('Backend/Template/header', $data)
+            . view('Backend/Template/sidebar', $data)
+            . view('Backend/profile', $data)
+            . view('Backend/Template/footer', $data);
+    }
+
+
+    public function settings()
+    {
+        if (
+            session()->get('ses_id') == "" ||
+            session()->get('ses_user') == "" ||
+            session()->get('ses_level') == ""
+        ) {
+            session()->setFlashdata('error', 'Silakan login terlebih dahulu!');
+            ?>
+<script>
+document.location = "<?= base_url('admin/login-admin'); ?>";
+</script>
+<?php
+            return;
+        }
+
+        $modelAdmin = new M_Admin();
+
+        $id = session()->get('ses_id');
+
+        $data['admin'] = $modelAdmin
+            ->getDataAdmin(['id_admin' => $id])
+            ->getRowArray();
+
+        return view('Backend/Template/header', $data)
+            . view('Backend/Template/sidebar', $data)
+            . view('Backend/setting', $data)
+            . view('Backend/Template/footer', $data);
+    }
+
+
+    public function update_password()
+    {
+        $modelAdmin = new M_Admin();
+
+        $id = session()->get('ses_id');
+        $password = $this->request->getPost('password');
+
+        if ($password == "") {
+            session()->setFlashdata('error', 'Password tidak boleh kosong!');
+            return redirect()->back();
+        }
+
+        $dataUpdate = [
+            'password_admin' => password_hash($password, PASSWORD_DEFAULT),
+            'update_at' => date("Y-m-d H:i:s")
+        ];
+
+        $modelAdmin->updateDataAdmin($dataUpdate, ['id_admin' => $id]);
+
+        session()->setFlashdata('success', 'Password berhasil diupdate!');
+        return redirect()->to(base_url('admin/settings'));
+    }
+
 }

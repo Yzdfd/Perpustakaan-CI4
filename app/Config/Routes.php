@@ -60,3 +60,8 @@ $routes->post('/admin/simpan-buku', 'Buku::simpan_buku');
 $routes->get('/admin/edit-buku/(:alphanum)', 'Buku::edit_buku/$1');
 $routes->post('/admin/update-buku', 'Buku::update_buku');
 $routes->get('/admin/hapus-buku/(:alphanum)', 'Buku::hapus_buku/$1');
+
+// Tambahan
+$routes->get('/admin/profile', 'Admin::profile');
+$routes->get('/admin/settings', 'Admin::settings');
+$routes->post('admin/update-password', 'Admin::update_password');
